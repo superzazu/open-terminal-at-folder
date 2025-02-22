@@ -17,21 +17,14 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 10
     steps:
-      # - name: Setup Swift
-      #   uses: SwiftyLab/setup-swift@latest
-      #   with:
-      #     swift-version: "6.0"
       - uses: actions/checkout@v4
       - name: "Build"
         run: swift build -c release
-      - name: "Prepare artifact"
-        working-directory: .build/release
-        run: 7z a -tzip open-terminal-at-folder.zip open-terminal-at-folder
       - name: "Upload artifact"
         uses: actions/upload-artifact@v4
         with:
           name: open-terminal-at-folder
-          path: .build/release/open-terminal-at-folder.zip
+          path: .build/release/open-terminal-at-folder
           if-no-files-found: error
   make-release:
     runs-on: ubuntu-latest
@@ -48,4 +41,4 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            .build/release/open-terminal-at-folder.zip
+            .build/release/open-terminal-at-folder
